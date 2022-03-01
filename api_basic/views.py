@@ -1,6 +1,7 @@
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
+from django.shortcuts import render
 
 from .models import Article
 from .serializers import ArticleSerializer, UserSerializer
@@ -9,6 +10,8 @@ from django.contrib.auth.models import User
 
 
 
+def index(request):
+    return render(request, 'index.html')
 
 class ArticleViewSet(viewsets.ModelViewSet):
     queryset = Article.objects.all()
