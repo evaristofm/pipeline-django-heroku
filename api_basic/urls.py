@@ -13,6 +13,7 @@ router.register('users', views.UserViewSet, basename='articles')
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    path('', views.index, name='index')
    # path('articles/', views.ArticleApiView.as_view()),
    # path('articles/', views.GenericApiView.as_view()),
    # path('articles/<int:id>/', views.GenericApiView.as_view()),
