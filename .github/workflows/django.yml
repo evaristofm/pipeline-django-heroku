@@ -36,6 +36,12 @@ jobs:
       run: |
         pipenv install --deploy --dev
         cp contrib/env-sample .env
+
+    - name: Run Tests
+      run: |
+        pipenv run pytest --cov=myproject
+        pipenv run codecov
+
         
     env:
       PIPENV_VENV_IN_PROJECT: 1
