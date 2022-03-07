@@ -35,6 +35,7 @@ jobs:
       if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
         pipenv install --deploy --dev
+        cp contrib/env-sample .env
         
     env:
       PIPENV_VENV_IN_PROJECT: 1
