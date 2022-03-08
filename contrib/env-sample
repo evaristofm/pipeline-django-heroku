@@ -1,2 +1,3 @@
 DEBUG=False
 SECRECT_KEY= chave secreta
+ALLOWED_HOSTS =
