@@ -1,5 +1,8 @@
 .venv_drf/
 .idea/
 db.sqlite3
+.venv
+.env
 .venv/
+
 
