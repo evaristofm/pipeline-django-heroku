@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    "collectfast",
     'django.contrib.staticfiles',
     'api_basic',
 ]
@@ -135,6 +136,7 @@ MEDIA_ROOT = BASE_DIR / 'mediafiles'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
+COLLECTFAST_ENABLED = False
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 if AWS_ACCESS_KEY_ID:
@@ -147,6 +149,7 @@ if AWS_ACCESS_KEY_ID:
     AWS_QUERYSTRING_AUTH = True
     AWS_S3_CUSTOM_DOMAIN = None
     AWS_DEFAULT_ACL = 'private'
+    COLLECTFAST_ENABLED = True
 
     #Static Assets
 
