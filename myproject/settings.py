@@ -11,11 +11,13 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os.path
 from pathlib import Path
-from threading import local
 import django_heroku
 from functools import partial
 from decouple import config, Csv
 import dj_database_url
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+from django.test.utils import ignore_warnings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api_basic',
     'myproject',
+
 ]
 
 MIDDLEWARE = [
@@ -109,6 +112,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+INTERNAL_IPS = config('INTERNAL_IPS', cast=Csv(), default='127.0.0.1')
+# configuração debug tollbar
+if DEBUG:
+    INSTALLED_APPS.append("debug_toolbar")
+    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
@@ -140,7 +148,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
 COLLECTFAST_ENABLED = False
 
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID', default=None)
 if AWS_ACCESS_KEY_ID:
     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
@@ -151,11 +159,11 @@ if AWS_ACCESS_KEY_ID:
     AWS_QUERYSTRING_AUTH = True
     AWS_S3_CUSTOM_DOMAIN = None
     AWS_DEFAULT_ACL = 'private'
-    COLLECTFAST_ENABLED = True
 
     #Static Assets
 
     STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+    COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
     STATIC_S3_PATH = 'static'
     STATIC_ROOT = f'/{STATIC_S3_PATH}/'
     STATIC_URL = f'//s3.amazonaws.com/{AWS_STORAGE_BUCKET_NAME}/{STATIC_S3_PATH}/'
@@ -170,5 +178,21 @@ if AWS_ACCESS_KEY_ID:
     INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
 
-from django.test.utils import ignore_warnings
+
 ignore_warnings(message="No directory at", module="whitenoise.base").enable()
+
+SENTRY_DSN = config("SENTRY_DSN", default=None)
+if SENTRY_DSN:
+    sentry_sdk.init(
+        dsn=SENTRY_DSN,
+        integrations=[DjangoIntegration()],
+
+        # Set traces_sample_rate to 1.0 to capture 100%
+        # of transactions for performance monitoring.
+        # We recommend adjusting this value in production.
+        traces_sample_rate=1.0,
+
+        # If you wish to associate users to errors (assuming you are using
+        # django.contrib.auth) you may enable sending PII data.
+        send_default_pii=True
+    )
