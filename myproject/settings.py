@@ -33,6 +33,7 @@ DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
+AUTH_USER_MODEL = 'myproject.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     "collectfast",
     'django.contrib.staticfiles',
     'api_basic',
+    'myproject',
 ]
 
 MIDDLEWARE = [
@@ -168,3 +170,5 @@ if AWS_ACCESS_KEY_ID:
     INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
 
+from django.test.utils import ignore_warnings
+ignore_warnings(message="No directory at", module="whitenoise.base").enable()

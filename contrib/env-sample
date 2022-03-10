@@ -1,4 +1,4 @@
-DEBUG=False
+DEBUG=True
 SECRET_KEY=chave secreta
 ALLOWED_HOSTS =
 AWS_ACCESS_KEY_ID=
