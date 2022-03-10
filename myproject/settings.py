@@ -33,6 +33,7 @@ DEBUG = config('DEBUG', cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 
+AUTH_USER_MODEL = 'myproject.User'
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     "collectfast",
     'django.contrib.staticfiles',
     'api_basic',
+    'myproject',
 ]
 
 MIDDLEWARE = [
