@@ -170,3 +170,5 @@ if AWS_ACCESS_KEY_ID:
     INSTALLED_APPS.append('s3_folder_storage')
     INSTALLED_APPS.append('storages')
 
+from django.test.utils import ignore_warnings
+ignore_warnings(message="No directory at", module="whitenoise.base").enable()
