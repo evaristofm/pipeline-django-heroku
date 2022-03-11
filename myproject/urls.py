@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from myproject import settings
+from myproject import settings, views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('api_basic.urls')),
+    path('', views.home, name='home')
 ]
 
 if settings.DEBUG:
