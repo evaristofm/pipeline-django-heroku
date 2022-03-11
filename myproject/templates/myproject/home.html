@@ -10,8 +10,8 @@
 
     <meta name="description" content="Página do curso Python Pro">
     <meta name="author" content="Evaristo Neto">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	  <link rel="shortcut icon" href="{% static 'img/icons-sol.png'%}" type="image/x-icon">
 	  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 	  <link href="{% static 'css/style.css'%}" rel="stylesheet">
 	  <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -34,19 +34,17 @@
   </div>
 </nav>
 
-    <div class="container-fluid">
+    <div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="jumbotron">
 				<h2>
-					Hello, world!
+					Curso de Python.
 				</h2>
 				<p>
 					This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.
 				</p>
-				<p>
-					<a class="btn btn-primary btn-large" href="#">Learn more</a>
-				</p>
+
 			</div>
 		</div>
 	</div>
@@ -68,6 +66,26 @@
 		</div>
 	</div>
 </div>
+	<footer class="main-footer mt-5 pt-4">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h3>Entre em contato</h3>
+					<address>
+						+55 0000-0000 <br>
+						<a href="mailto:evaristofm@gmail.com">evaristofm@gmail.com</a>
+					</address>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					{% now 'Y' %} Python Pro.
+				</div>
+			</div>
+		</div>
+	</footer>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
